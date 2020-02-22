@@ -59,10 +59,7 @@
 		"access": "public"
 	},
 	"xo": {
-		"extends": "richienb/ts",
-		"ignores": [
-			"vlc-3.0.8/**"
-		]
+		"extends": "richienb/ts"
 	},
 	"ava": {
 		"extensions": [
