@@ -1,8 +1,8 @@
 {
-	"name": "the-module",
+	"name": "@richienb/vlc",
 	"version": "0.0.0",
-	"description": "My awesome module.",
-	"repository": "https://github.com/Richienb/the-module.git",
+	"description": "An interface to VLC Media Player.",
+	"repository": "https://github.com/Richienb/vlc.git",
 	"author": "Richie Bendall <richiebendall@gmail.com>",
 	"license": "MIT",
 	"main": "dist/index.js",
@@ -20,9 +20,29 @@
 		"lint": "xo",
 		"test": "yarn lint && ava"
 	},
-	"keywords": [],
-	"dependencies": {},
+	"keywords": [
+		"vlc",
+		"media",
+		"player",
+		"interface",
+		"api",
+		"http",
+		"interface",
+		"binary",
+		"download",
+		"play"
+	],
+	"dependencies": {
+		"execa": "^4.0.0",
+		"get-port": "^5.1.1",
+		"got": "^10.6.0",
+		"internal-ip": "^5.0.0",
+		"unique-string": "^2.0.0",
+		"url-join": "^4.0.1",
+		"vlc-static": "^1.0.2"
+	},
 	"devDependencies": {
+		"@types/url-join": "^4.0.0",
 		"ava": "^3.3.0",
 		"eslint-config-richienb": "^0.3.0",
 		"ts-node": "^8.6.2",
@@ -34,7 +54,10 @@
 		"eslint": "^6.8.0"
 	},
 	"xo": {
-		"extends": "richienb/ts"
+		"extends": "richienb/ts",
+		"ignores": [
+			"vlc-3.0.8/**"
+		]
 	},
 	"ava": {
 		"extensions": [

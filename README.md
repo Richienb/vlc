@@ -1,43 +1,42 @@
-# The module [![Travis CI Build Status](https://img.shields.io/travis/com/Richienb/the-module/master.svg?style=for-the-badge)](https://travis-ci.com/Richienb/the-module)
+# VLC [![Travis CI Build Status](https://img.shields.io/travis/com/Richienb/vlc/master.svg?style=for-the-badge)](https://travis-ci.com/Richienb/vlc)
 
-My awesome module.
+An interface to VLC Media Player.
 
-[![NPM Badge](https://nodei.co/npm/the-module.png)](https://npmjs.com/package/the-module)
+[![NPM Badge](https://nodei.co/npm/@richienb/vlc.png)](https://npmjs.com/package/@richienb/vlc)
+
+## Highlights
+
+- Automatic command encoding and delivery.
+- Automatic port acquisition.
+- TypeScript support.
+- Bundled binaries.
+- No native dependencies.
+- Actively maintained.
 
 ## Install
 
 ```sh
-npm install the-module
+npm install @richienb/vlc
 ```
 
 ## Usage
 
 ```js
-const theModule = require("the-module");
+const vlc = require("@richienb/vlc");
 
-theModule("unicorns");
-//=> 'unicorns & rainbows'
+(async () => {
+	const vlc = await vlc()
+
+	// Play audio
+	await vlc.command("in_play", {
+		input: "audioFile.mp3"
+	})
+
+	// Pause/resume audio
+	await vlc.command("pl_pause")
+})()
 ```
 
 ## API
 
-For more information, see the [documentation](https://richienb.github.io/the-module).
-
-### theModule(input, options?)
-
-#### input
-
-Type: `string`
-
-Lorem ipsum.
-
-#### options
-
-Type: `object`
-
-##### postfix
-
-Type: `string`\
-Default: `rainbows`
-
-Lorem ipsum.
+See the documentation: https://richienb.github.io/vlc
