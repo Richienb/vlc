@@ -37,9 +37,10 @@
 		"get-port": "^5.1.1",
 		"got": "^10.6.0",
 		"internal-ip": "^5.0.0",
+		"query-string": "^6.11.1",
 		"unique-string": "^2.0.0",
 		"url-join": "^4.0.1",
-		"vlc-static": "^1.0.2"
+		"vlc-static": "^1.0.3"
 	},
 	"devDependencies": {
 		"@types/is-ci": "^2.0.0",

@@ -8,6 +8,7 @@ import getPort from "get-port"
 import execa from "execa"
 
 import got from "got"
+import queryString from "query-string"
 import joinURL from "url-join"
 
 namespace Result {
@@ -141,24 +142,22 @@ export = async function vlc() {
 	return new class VLC {
 		/** Get the current player status. */
 		public async info() {
-			const { body } = await got<Result.Status>(joinURL(address, "requests", "status.json"), {
+			const data = await got<Result.Status>(joinURL(address, "requests", "status.json"), {
 				port,
 				password,
-				responseType: "json"
-			})
+			}).json()
 
-			return body
+			return data
 		}
 
 		/** Get the current playlist information. */
 		public async playlist() {
-			const { body } = await got<Result.Playlist>(joinURL(address, "requests", "playlist.json"), {
+			const data = await got<Result.Playlist>(joinURL(address, "requests", "playlist.json"), {
 				port,
 				password,
-				responseType: "json"
-			})
+			}).json()
 
-			return body
+			return data
 		}
 
 		/**
@@ -167,13 +166,12 @@ export = async function vlc() {
 		 * @param options The data to encode with the command.
 		*/
 		public async command(command: string, options?: Record<string, string | number | boolean>) {
-			await got(joinURL(address, "requests", "status.json"), {
+			await got(joinURL(address, "requests", "status.json", `?${queryString.stringify({
+				command,
+				...options,
+			}).replace(/\+/, "%20")}`), {
 				port,
 				password,
-				searchParams: {
-					command,
-					...options,
-				}
 			})
 		}
 
