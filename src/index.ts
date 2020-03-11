@@ -141,23 +141,23 @@ export = async function vlc() {
 
 	return new class VLC {
 		/** Get the current player status. */
-		public async info() {
+		public async info(): Promise<Result.Status> {
 			const data = await got<Result.Status>(joinURL(address, "requests", "status.json"), {
 				port,
 				password,
 			}).json()
 
-			return data
+			return data as any
 		}
 
 		/** Get the current playlist information. */
-		public async playlist() {
+		public async playlist(): Promise<Result.Playlist> {
 			const data = await got<Result.Playlist>(joinURL(address, "requests", "playlist.json"), {
 				port,
 				password,
 			}).json()
 
-			return data
+			return data as any
 		}
 
 		/**
