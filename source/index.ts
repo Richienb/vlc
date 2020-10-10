@@ -1,17 +1,15 @@
 "use strict"
 
 import vlcStatic from "vlc-static"
-
 import uniqueString from "unique-string"
 import internalIp from "internal-ip"
 import getPort from "get-port"
 import execa from "execa"
-
 import got from "got"
 import queryString from "query-string"
-import joinURL from "url-join"
+import joinUrl from "url-join"
 
-namespace Result {
+namespace vlc {
 	export interface Status {
 		readonly fullscreen: number | boolean
 		readonly audiodelay: number
@@ -36,10 +34,10 @@ namespace Result {
 	}
 
 	export type VLCPlaylistStatus =
-		| 'stopped'
-		| 'playing'
-		| 'paused'
-		| 'unknown'
+		| "stopped"
+		| "playing"
+		| "paused"
+		| "unknown"
 
 	export interface AudioFilters {
 		filter_0: string
@@ -51,7 +49,7 @@ namespace Result {
 
 	export interface Equalizer {
 		presets: Presets
-		bands: { [key: string]: number }
+		bands: Record<string, number>
 		preamp: number
 	}
 
@@ -130,7 +128,7 @@ namespace Result {
 	}
 }
 
-export = async function vlc() {
+async function vlc() {
 	const password = uniqueString()
 	const ip = await internalIp.v4()
 	const port = await getPort()
@@ -140,44 +138,55 @@ export = async function vlc() {
 	const instance = execa(vlcStatic(), ["--extraintf", "http", "--intf", "wx", "--http-host", ip, "--http-port", port.toString(), "--http-password", password])
 
 	return new class VLC {
-		/** Get the current player status. */
-		public async info(): Promise<Result.Status> {
-			const data = await got<Result.Status>(joinURL(address, "requests", "status.json"), {
+		/**
+		Get the current player status.
+		*/
+		public async info(): Promise<vlc.Status> {
+			const { body } = await got<vlc.Status>(joinUrl(address, "requests", "status.json"), {
 				port,
 				password,
-			}).json()
+				responseType: "json"
+			})
 
-			return data as any
-		}
-
-		/** Get the current playlist information. */
-		public async playlist(): Promise<Result.Playlist> {
-			const data = await got<Result.Playlist>(joinURL(address, "requests", "playlist.json"), {
-				port,
-				password,
-			}).json()
-
-			return data as any
+			return body
 		}
 
 		/**
-		 * Execute a command. See https://wiki.videolan.org/VLC_HTTP_requests#Full_command_list
-		 * @param command The command to execute.
-		 * @param options The data to encode with the command.
+		Get the current playlist information.
 		*/
-		public async command(command: string, options?: Record<string, string | number | boolean>) {
-			await got(joinURL(address, "requests", "status.json", `?${queryString.stringify({
-				command,
-				...options,
-			}).replace(/\+/, "%20")}`), {
+		public async playlist(): Promise<vlc.Playlist> {
+			const { body } = await got<vlc.Playlist>(joinUrl(address, "requests", "playlist.json"), {
 				port,
 				password,
+				responseType: "json"
+			})
+
+			return body
+		}
+
+		/**
+		Execute a command.
+
+		@param command The [command](https://wiki.videolan.org/VLC_HTTP_requests#Full_command_list) to execute.
+		@param options The data to encode with the command.
+		*/
+		public async command(command: string, options?: Record<string, string | number | boolean>) {
+			await got(joinUrl(address, "requests", "status.json", `?${queryString.stringify({
+				command,
+				...options
+			}).replace(/\+/, "%20")}`), {
+				port,
+				password
 			})
 		}
 
-		/** Kill the process. */
+		/**
+		Kill the process.
+		*/
 		public kill(): void {
 			instance.kill()
 		}
-	}
+	}()
 }
+
+export = vlc
