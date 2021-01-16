@@ -35,7 +35,7 @@ test("main", async t => {
 		loop: false,
 		version: "3.0.11 Vetinari",
 		position: 0,
-		repeat: true,
+		repeat: false,
 		subtitledelay: 0,
 		equalizer: []
 	})
