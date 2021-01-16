@@ -1,6 +1,6 @@
 {
 	"name": "@richienb/vlc",
-	"version": "0.0.0",
+	"version": "2.0.0",
 	"description": "An interface to VLC Media Player.",
 	"repository": "https://github.com/Richienb/vlc.git",
 	"author": "Richie Bendall <richiebendall@gmail.com>",
@@ -17,7 +17,9 @@
 		"build": "tsc && typedoc",
 		"dev": "tsc --watch",
 		"lint": "xo",
-		"test": "xo && ava"
+		"test": "xo && ava",
+		"prepublishOnly": "tsc && typedoc",
+		"postpublish": "gh-pages --dist docs --message \"Deploy documentation\""
 	},
 	"keywords": [
 		"vlc",
@@ -42,10 +44,13 @@
 		"vlc-static": "^1.0.4"
 	},
 	"devDependencies": {
+		"@richienb/tsconfig": "^0.1.1",
+		"@richienb/typedoc": "^0.1.1",
 		"@types/is-ci": "^2.0.0",
 		"@types/url-join": "^4.0.0",
 		"ava": "^3.13.0",
 		"eslint-config-richienb": "^0.5.0",
+		"gh-pages": "^3.1.0",
 		"is-ci": "^2.0.0",
 		"ts-node": "^9.0.0",
 		"typedoc": "^0.19.2",
