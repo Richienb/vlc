@@ -1,6 +1,6 @@
 {
 	"name": "@richienb/vlc",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "An interface to VLC Media Player.",
 	"repository": "https://github.com/Richienb/vlc.git",
 	"author": "Richie Bendall <richiebendall@gmail.com>",
