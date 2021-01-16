@@ -135,7 +135,7 @@ async function vlc() {
 
 	const address = `http://${ip}`
 
-	const instance = execa(vlcStatic(), ["--extraintf", "http", "--intf", "wx", "--http-host", ip, "--http-port", port.toString(), "--http-password", password])
+	const instance = execa(vlcStatic(), ["--extraintf", "http", "--intf", "dummy", "--http-host", ip, "--http-port", port.toString(), "--http-password", password])
 
 	return new class VLC {
 		/**
