@@ -1,6 +1,6 @@
 {
 	"name": "@richienb/vlc",
-	"version": "2.0.1",
+	"version": "3.0.0",
 	"description": "An interface to VLC Media Player.",
 	"repository": "Richienb/vlc",
 	"author": {
