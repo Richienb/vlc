@@ -1,7 +1,10 @@
 import test, {ExecutionContext} from 'ava';
+import isCi from 'is-ci';
 import createVlc from './source/index.js';
 
-test('main', async (t: ExecutionContext) => {
+const testIf = (condition: boolean) => condition ? test : test.skip;
+
+testIf(!isCi)('main', async (t: ExecutionContext) => {
 	const vlc = await createVlc();
 
 	t.deepEqual(await vlc.info(), {
