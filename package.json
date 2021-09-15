@@ -9,7 +9,7 @@
 	},
 	"license": "MIT",
 	"type": "module",
-	"exports": "./index.js",
+	"exports": "./dist/index.js",
 	"files": [
 		"dist"
 	],
