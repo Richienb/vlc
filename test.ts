@@ -1,17 +1,10 @@
-import vlc from "./source" // eslint-disable-line import/default, node/no-missing-import
-import isCi from "is-ci"
-import test from "ava"
+import test, {ExecutionContext} from 'ava';
+import createVlc from './source/index.js';
 
-test("main", async t => {
-	if (isCi) {
-		// For now, Travis CI doesn't support testing.
-		t.pass()
-		return
-	}
+test('main', async (t: ExecutionContext) => {
+	const vlc = await createVlc();
 
-	const vlcInstance = await vlc()
-
-	t.deepEqual(await vlcInstance.info(), {
+	t.deepEqual(await vlc.info(), {
 		fullscreen: 0,
 		audiodelay: 0,
 		apiversion: 3,
@@ -21,7 +14,7 @@ test("main", async t => {
 		length: 0,
 		random: false,
 		audiofilters: {
-			filter_0: ""
+			filter_0: '',
 		},
 		rate: 1,
 		videoeffects: {
@@ -29,14 +22,16 @@ test("main", async t => {
 			saturation: 1,
 			contrast: 1,
 			brightness: 1,
-			gamma: 1
+			gamma: 1,
 		},
-		state: "stopped",
+		state: 'stopped',
 		loop: false,
-		version: "3.0.11 Vetinari",
+		version: '3.0.16 Vetinari',
 		position: 0,
-		repeat: false,
+		repeat: true,
 		subtitledelay: 0,
-		equalizer: []
-	})
-})
+		equalizer: [],
+	});
+
+	vlc.kill();
+});

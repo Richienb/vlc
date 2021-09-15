@@ -2,24 +2,24 @@
 	"name": "@richienb/vlc",
 	"version": "2.0.1",
 	"description": "An interface to VLC Media Player.",
-	"repository": "https://github.com/Richienb/vlc.git",
-	"author": "Richie Bendall <richiebendall@gmail.com>",
+	"repository": "Richienb/vlc",
+	"author": {
+		"name": "Richie Bendall",
+		"email": "richiebendall@gmail.com"
+	},
 	"license": "MIT",
-	"main": "dist/index.js",
+	"type": "module",
+	"exports": "./index.js",
 	"files": [
 		"dist"
 	],
 	"engines": {
-		"node": ">=10.19.0"
+		"node": ">=12.20"
 	},
 	"scripts": {
-		"docs": "typedoc",
-		"build": "tsc && typedoc",
-		"dev": "tsc --watch",
-		"lint": "xo",
+		"build": "tsc",
 		"test": "xo && ava",
-		"prepublishOnly": "tsc && typedoc",
-		"postpublish": "gh-pages --dist docs --message \"Deploy documentation\""
+		"prepack": "tsc"
 	},
 	"keywords": [
 		"vlc",
@@ -34,41 +34,29 @@
 		"play"
 	],
 	"dependencies": {
-		"execa": "^4.0.3",
+		"execa": "^5.1.1",
 		"get-port": "^5.1.1",
-		"got": "^11.7.0",
-		"internal-ip": "^6.1.0",
-		"query-string": "^6.13.3",
-		"unique-string": "^2.0.0",
-		"url-join": "^4.0.1",
-		"vlc-static": "^1.0.4"
+		"got": "^11.8.2",
+		"internal-ip": "^6.2.0",
+		"unique-string": "^3.0.0",
+		"vlc-static": "^2.0.0"
 	},
 	"devDependencies": {
-		"@richienb/tsconfig": "^0.1.1",
-		"@richienb/typedoc": "^0.1.1",
-		"@types/is-ci": "^2.0.0",
-		"@types/url-join": "^4.0.0",
-		"ava": "^3.13.0",
-		"eslint-config-richienb": "^0.5.0",
-		"gh-pages": "^3.1.0",
-		"is-ci": "^2.0.0",
-		"ts-node": "^9.0.0",
-		"typedoc": "^0.19.2",
-		"typescript": "^4.0.2",
-		"xo": "^0.33.1"
-	},
-	"publishConfig": {
-		"access": "public"
-	},
-	"xo": {
-		"extends": "richienb/typescript"
+		"@sindresorhus/tsconfig": "^2.0.0",
+		"ava": "^3.15.0",
+		"ts-node": "^10.2.1",
+		"typescript": "^4.4.3",
+		"xo": "^0.44.0"
 	},
 	"ava": {
-		"extensions": [
-			"ts"
-		],
-		"require": [
-			"ts-node/register"
+		"extensions": {
+			"ts": "module"
+		},
+		"nonSemVerExperiments": {
+			"configurableModuleFormat": true
+		},
+		"nodeArguments": [
+			"--loader=ts-node/esm"
 		]
 	}
 }

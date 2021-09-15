@@ -1,8 +1,6 @@
-# VLC [![Travis CI Build Status](https://img.shields.io/travis/com/Richienb/vlc/master.svg?style=for-the-badge)](https://travis-ci.com/Richienb/vlc)
+# vlc
 
 An interface to VLC Media Player.
-
-[![NPM Badge](https://nodei.co/npm/@richienb/vlc.png)](https://npmjs.com/package/@richienb/vlc)
 
 ## Highlights
 
@@ -22,21 +20,39 @@ npm install @richienb/vlc
 ## Usage
 
 ```js
-const vlc = require("@richienb/vlc");
+import createVlc from '@richienb/vlc';
 
-(async () => {
-	const vlc = await vlc()
+const vlc = await createVlc();
 
-	// Play audio
-	await vlc.command("in_play", {
-		input: "audioFile.mp3"
-	})
+// Play audio
+await vlc.command('in_play', {
+	input: 'audio-file.mp3',
+});
 
-	// Pause/resume audio
-	await vlc.command("pl_pause")
-})()
+// Pause/resume audio
+await vlc.command('pl_pause');
 ```
 
 ## API
 
-See the documentation: https://richienb.github.io/vlc
+### createVlc()
+
+Returns a promise which resolves with the vlc instance.
+
+### vlc.info()
+
+Get the current player status. Returns a promise.
+
+### vlc.playlist()
+
+Get the current playlist information. Returns a promise.
+
+### vlc.command(command, options?)
+
+Execute a command on the player. Returns a promise that resolves when the command has been sent.
+
+#### command
+
+Type: `string`
+
+The [command](https://wiki.videolan.org/VLC_HTTP_requests#Full_command_list) to execute.
